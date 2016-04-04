@@ -1,32 +1,32 @@
 <ion-view view-title="טופס תלונה" ng-controller="ReportCtrl">
     <ion-content class="padding">
-          <form ng-submit="">
-    		<div class="list list-inset">
+        <form ng-submit="addReport()">
+    		  <div class="list list-inset">
 
             <!-- Report Description -->
             <label class="item item-input item-floating-label">
               <span class="input-label">פירוט התלונה ו/או הצעה לשיפור</span>
-              <textarea name="" id="" cols="30" rows="5" placeholder="פירוט התלונה ו/או הצעה לשיפור"></textarea>
+              <textarea name="" id="" cols="30" rows="5" placeholder="פירוט התלונה ו/או הצעה לשיפור" ng-model="formData.description"></textarea>
 			  	  </label>
 
             <!-- Report Date -->
 			  	  <label class="item item-input item-input">
               <i class="icon ion-calendar placeholder-icon"></i>
               <span class="input-label">תאריך האירוע</span>
-              <input type="date">
+              <input type="date" ng-model="formData.date">
 			  	  </label>
 
             <!-- Report Time -->
             <label class="item item-input">
               <i class="icon ion-android-time placeholder-icon"></i>
               <span class="input-label">שעת האירוע</span>
-              <input type="time">
+              <input type="time" ng-model="formData.time">
             </label>
 
             <!-- Report Bus Line -->
             <label class="item item-input">
               <i class="icon ion-android-bus placeholder-icon"></i>
-              <input type="number" placeholder="מספר הקו">
+              <input type="number" placeholder="מספר הקו" ng-model="formData.busLine">
             </label>
 
 
@@ -35,7 +35,7 @@
                 <div class="input-label">
                   חברת התחבורה
                 </div>
-                <select>
+                <select ng-model="formData.transportCompany">
                   <option>אגד</option>
                   <option>אגד תעבורה</option>
                   <option>אפיקים</option>
@@ -61,7 +61,7 @@
           <!-- Report Location -->
           <label class="item item-input">
             <i class="icon ion-location placeholder-icon"></i>
-            <input type="text" placeholder="מקום האירוע">
+            <input type="text" placeholder="מקום האירוע" ng-model="formData.location">
           </label>
 
           <!-- Report Problem -->
@@ -69,7 +69,7 @@
             <div class="input-label">
               מהות התלונה
             </div>
-            <select>
+            <select ng-model="formData.complaint">
               <option>אי עמידה בלו"ז</option>
               <option>תלונות על נהגים</option>
               <option>תדירות נמוכה</option>
@@ -86,25 +86,25 @@
           <!-- Report Name -->
           <label class="item item-input">
             <i class="icon ion-person placeholder-icon"></i>
-            <input type="text" placeholder="שם">
+            <input type="text" placeholder="שם" ng-model="formData.name">
           </label>
 
           <!-- Report Email -->
           <label class="item item-input">
             <i class="icon ion-email placeholder-icon"></i>
-            <input type="email" placeholder="מייל">
+            <input type="email" placeholder="מייל" ng-model="formData.email">
           </label>
 
           <!-- Report Tele -->
           <label class="item item-input">
             <i class="icon ion-ios-telephone placeholder-icon"></i>
-            <input type="tel" placeholder="טלפון">
+            <input type="tel" placeholder="טלפון" ng-model="formData.telephone">
           </label>
 
-          <!-- Report Tele -->
+          <!-- Report file -->
           <label class="item item-input">
             <i class="icon ion-ios-telephone placeholder-icon"></i>
-            <input type="file" placeholder="צרפו קובץ">
+            <input type="file" placeholder="צרפו קובץ" ng-model="formData.file">
           </label>
 
           <button type="submit" class="button button-block button-positive">

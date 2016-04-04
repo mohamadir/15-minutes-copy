@@ -1,11 +1,18 @@
 var express = require('express');
 var app = express();
-var mongojs = require('mongojs');
-var db = mongojs('40.83.122.67/personlist', ['personlist']);
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var path = require('path');
 
+var database = require('./config/database');
+
+// set database setup
+mongoose.connect(database.url);
+var Report = require('./models/report');
+
+// app params
 app.set('port', process.env.PORT || 1337);
-
+app.use(express.static(path.join(__dirname + '/public')));
 app.use(bodyParser.json());
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
@@ -18,30 +25,34 @@ app.all('*', function(req, res, next) {
 
 // home page
 app.get('/', function(req, res){
-	res.send("Ionic App Api.");
+	res.render('index.html');
 });
 
-app.get('/personlist', function(req, res){
-	db.personlist.find(function(err, docs){
-		res.json(docs);
+app.get('/api/v1/report', function(req, res){
+	Report.find().exec(function(err, item){
+		res.json(item);
 	});
 });
 
-app.post('/personlist', function(req, res){
+app.post('/api/v1/report', function(req, res){
 	console.log("Post Requests.");
-	db.personlist.insert(req.body, function(err, docs){
-		res.json(docs);
-	});
+	console.log(req.body);
+	Report.create(req.body, function(err, item){
+		if(err){
+			console.log("Erorr!! Post Requests.");
+		}
+		res.json(item);
+	})
 });
 
-// Delete requset
-app.delete('/personlist/:id', function(req, res){
-	console.log("Delete Requests: ", req.params.id);
-	db.personlist.remove({"_id": mongojs.ObjectId(req.params.id)}, function(err, docs){
-		console.log("Deleted Successfully!!");
-		res.json(docs);
-	});
-});
+// // Delete requset
+// app.delete('/personlist/:id', function(req, res){
+// 	console.log("Delete Requests: ", req.params.id);
+// 	db.personlist.remove({"_id": mongojs.ObjectId(req.params.id)}, function(err, docs){
+// 		console.log("Deleted Successfully!!");
+// 		res.json(docs);
+// 	});
+// });
 
 app.listen(app.get('port'), function(){
 	console.log("localhost:" + app.get('port'));

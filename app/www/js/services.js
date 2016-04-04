@@ -1,20 +1,20 @@
 angular.module('starter.services', [])
 
-.service('Person', function($http, $q) {
+.service('Report', function($http, $q) {
     var self = {
         'results': [],
         'load': function () {
-            var defer = $q.defer();
-            $http.get('http://localhost:1337/personlist').success(function(response) {
-                self.results = response;
-                console.log(response);
-                defer.resolve(response);
-            });
-            return defer.promise;
+            // var defer = $q.defer();
+            // $http.get('http://localhost:1337/personlist').success(function(response) {
+            //     self.results = response;
+            //     console.log(response);
+            //     defer.resolve(response);
+            // });
+            // return defer.promise;
         },
-        'addPerson': function(formData){
+        'addReport': function(formData){
             var defer = $q.defer();
-            $http.post('http://localhost:1337/personlist', formData).success(function(response) {
+            $http.post('http://localhost:1337/api/v1/report', formData).success(function(response) {
                 console.log("Post http: ", formData);
                 self.load();
                 defer.resolve(response);
